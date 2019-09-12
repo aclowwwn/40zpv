@@ -1,0 +1,78 @@
+{
+  "name": "intro",
+  "routes": {
+    "main": {
+      "title": "Campanie",
+      "icon": "home",
+      "path": "/",
+      "cover": {
+        "image": "cover2.r.jpg",
+        "opacity": 0.4,
+        "navigation": true,
+        "title": "Începutul sfârșitului avortului",
+        "subtitle": "Alătură-te celei mai mari mișcări internaționale de post, rugăciune și veghe pentru viață",
+        "type": "default"
+      },
+      "components": {
+        "intro": {
+          "source": "summary",
+          "text": "local://intro",
+          "image": "logo.png",
+          "textColor": "#37474F"
+        },
+        "features": [
+          {
+            "id": "cluj",
+            "source": "feature",
+            "text": "local://cluj",
+            "image": "cluj.jpg",
+            "actionTitle": "Înscrie-te la veghe",
+            "backgroundColor": "#ffffff",
+            "textColor": "#0686d8",
+            "animation": true
+          },
+          {
+            "id": "craiova",
+            "source": "feature",
+            "text": "local://craiova",
+            "image": "craiova.jpg",
+            "reversed": true,
+            "actionTitle": "Înscrie-te la veghe",
+            "backgroundColor": "#ffffff",
+            "textColor": "#0686d8",
+            "animation": true
+          },
+          {
+            "id": "oradea",
+            "source": "feature",
+            "text": "local://oradea",
+            "image": "oradea.jpg",
+            "actionTitle": "Înscrie-te la veghe",
+            "backgroundColor": "#ffffff",
+            "textColor": "#0686d8",
+            "animation": true
+          }
+        ]
+      },
+      "events": {
+        "cluj": "local://cluj",
+        "craiova": "local://craiova",
+        "oradea": "local://oradea"
+      }
+    },
+    "campanie": {
+      "title": "Campanie",
+      "icon": "home",
+      "path": "/:locationId",
+      "cover": {
+        "image": "cover2.r.jpg",
+        "opacity": 0.4,
+        "navigation": true,
+        "title": "Începutul sfârșitului avortului",
+        "subtitle": "Alătură-te celei mai mari mișcări internaționale de post, rugăciune și veghe pentru viață",
+        "type": "simple"
+      }
+    }
+  },
+  "transitions": ["push://location", "push://main"]
+}
