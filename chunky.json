@@ -1,7 +1,7 @@
 {
-  "name": "Chunky",
+  "name": "40 de zile pentru viata",
   "env": "dev",
-  "id": "io.chunky",
+  "id": "io.40zpv",
   "androidSdkDir": "~/Library/Android/sdk",
   "sections": {
     "start": {

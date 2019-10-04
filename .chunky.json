@@ -1,0 +1,14 @@
+
+{
+  "cloud": {
+      "production": {
+          "google": {
+              "services": ["drive", "calendar", "spreadsheets"],
+              "serviceAccount": {
+                  "type": "service_account",
+                  "project_id": "zpv-8465f"
+              }
+          }
+      }
+  }
+}

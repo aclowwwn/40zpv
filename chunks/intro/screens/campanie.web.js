@@ -1,12 +1,11 @@
 import React from 'react'
 import { Screen } from 'react-dom-chunky'
 import moment from 'moment'
-import { Modal, Input, InputNumber, Typography } from 'antd';
+import { Modal, Input, InputNumber, Typography, Checkbox } from 'antd';
 import { Hour } from '../components'
 
 const { Title } = Typography;
-// import 'moment/locale/ro'
-// moment.locale('ro')
+
 
 export default class MainScreen extends Screen {
   constructor (props) {
@@ -20,13 +19,67 @@ export default class MainScreen extends Screen {
 
   componentDidMount () {
     super.componentDidMount()
+
+    // this.getLocations() 
+  }
+
+  getLocations() {
+    // const options = {
+    //   hostname: 'sheetsu.com',
+    //   port: 443,
+    //   path: `${dbURL}/search?city=cluj&day=1'`,
+    //   method: 'GET'
+    // }
+
+    // const req = https.request(options, res => {
+    //   // console.log(`statusCode: ${res.statusCode}`)
+
+    //   res.on('data', d => {
+    //     const data = JSON.parse(d.toString())
+    //     this.processData(data)
+    //   })
+    // })
+
+    // req.on('error', error => {
+    //   console.error(error)
+    // })
+
+    // req.end()
+
+  }
+
+  processData(data) {
+    // const hours = new Array(12).fill(0)
+    const days = new Array(40).fill([])
+
+      data.forEach(entry => {
+
+        days[entry.day].push(entry)
+      })
+
+    this.setState({dbDays: days})
+  }
+
+  getDBHours(day) {
+    const hours = []
+    for (let i = 0; i <= 11; i++) {
+      hours[i] = 0
+    }
+    const { data = [] } = this.state
+    data.forEach(entry => {
+      if(entry.day == day) {
+         ++ hours[entry.hour]
+      }
+    })
+
+    return hours
   }
 
   onSignup(label, event) {
     // add a debounce here
     let value
 
-    if( label == 'persons' || label == 'hours' ) {
+    if( label == 'signups' || label == 'hours' ) {
       value = event
     } else {
       value = event.target.value
@@ -35,26 +88,29 @@ export default class MainScreen extends Screen {
     this.setState({ [`draft${label}`]: value })
   }
 
-  handleOk() {
+  onAgree() {
 
+  }
+
+  handleOk() {
     const { days } = this.state
 
-    const { draftDay, draftHour, draftname, draftphone, drafthours = 1, draftpersons = 1 } = this.state
+    const { draftDay, draftHour, draftname, draftphone, drafthours = 1, draftsignups = 1 } = this.state
 
     const stateDay = days[draftDay] || []
     const stateHour = stateDay[draftHour] || 0
 
     let updatedDay = stateDay
-
     for( let i = draftHour; i < (draftHour + drafthours); i++ ) {
-      updatedDay[i] = stateHour + draftpersons
+      let eachHour = stateDay[i] || 0
+      updatedDay[i] = eachHour + draftsignups
     }
 
     const updatedDays = Object.assign({}, days, {
       [draftDay]: Object.assign({}, stateDay, updatedDay)
     })
 
-    this.setState({ showModal: false, hourIndex: null, days: updatedDays, draftPersons: 0  })
+    this.setState({ showModal: false, hourIndex: null, days: updatedDays, draftsignups: 1, drafthours: 1, draftHour: null, draftDay: null  })
   }
 
 
@@ -72,10 +128,11 @@ export default class MainScreen extends Screen {
   
   renderModal() {
     return <Modal
-    title="Înscrie-te la veghe"
+    title={`Înscrie-te la veghe de la ora ${this.state.draftHour + 7}:00`}
     visible={this.state.showModal}
     onOk={this._handleOk}
     closable={false}
+    destroyOnClose={true}
     onCancel={this._handleCancel}
     cancelText="Anulează"
     >
@@ -87,27 +144,32 @@ export default class MainScreen extends Screen {
       <p/>
       Număr de ore
       <br />
-      <InputNumber min={1} max={12 - this.state.hourIndex} defaultValue={1} onChange={this.onSignup.bind(this, 'hours')}/>
+      <InputNumber min={1} max={12 - this.state.draftHour} defaultValue={1} onChange={this.onSignup.bind(this, 'hours')}/>
       <br />
       <br />
       Număr de persoane
       <br />
-      <InputNumber min={1} defaultValue={1} onChange={this.onSignup.bind(this, 'persons')}/>
+      <InputNumber min={1} defaultValue={1} onChange={this.onSignup.bind(this, 'signups')}/>
+      <br />
+      <br />
+      <div style={{fontSize: 12}}>Am citit nota de informare <a href="gdpr/agree" target="_blank">(click aici)</a> și sunt de acord cu prelucrarea datelor mele cu caracter personal. Sunt de acord să împărtășesc datele mele cu caracter personal cu 40 ProViață</div>
+      <Checkbox onChange={this.onAgree.bind(this)}>Sunt de acord</Checkbox>
     </Modal>
   }
   
-  renderHour(hourIndex, dayIndex) {
+  renderHour(hourIndex, dayIndex, hours) {
 
     const day = this.state.days[dayIndex] || {}
-    const hourSignups = day[hourIndex] || 0
+    const hourSignups = day[hourIndex] || hours[hourIndex]
 
-    return <Hour index={hourIndex} signups={hourSignups} onAdd={this.onAdd.bind(this, hourIndex, dayIndex)}/>
+    return <Hour index={hourIndex} signups={hourSignups} onAdd={this.onAdd.bind(this, hourIndex, dayIndex)} />
   }
 
   renderDay(dayIndex) {
     let buttons = [];
+    const hours = this.getDBHours(dayIndex)
     for (let i = 0; i <= 11; i ++) {
-      buttons.push(this.renderHour(i, dayIndex))
+      buttons.push(this.renderHour(i, dayIndex, hours))
     }
 
     let today = moment().isAfter('09.25.2019')? moment(): moment('09.25.2019');
@@ -155,7 +217,7 @@ export default class MainScreen extends Screen {
   }
 
   components () {
-
+    // console.log('asdsafdsfdsdfds', this.state.dbDays)
     return super.components().concat([this.renderCalendar()])
   }
 }

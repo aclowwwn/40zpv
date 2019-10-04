@@ -1,3 +1,3 @@
 # Oradea
 
-## Str. Clinicilor, nr. 1, între orele 7:00 - 19:00
+## Calea Clujului 50, între orele 9:00 - 17:00

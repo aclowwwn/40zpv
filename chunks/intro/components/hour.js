@@ -23,7 +23,7 @@ export default class Hour extends Component {
       return '#CFD8DC'
       case 1:
         return '#e53935'
-      case 2:f
+      case 2:
         return '#FB8C00'
       case 3:
         return '#FDD835'
@@ -39,8 +39,9 @@ export default class Hour extends Component {
     const color = this.renderColor(signups)
 
     const tick = Object.assign({}, styles.tick, {
-      transform: `rotate(${index * 30}deg) translate(120px)`,
+      transform: `rotate(${index * 30 - 150}deg) translate(120px)`,
       background: color,
+      transition: 'background-color 1s ease',
       border: color,
       opacity: this.state.hovered? 1: 0.9
     })
@@ -48,7 +49,7 @@ export default class Hour extends Component {
     const hour = `${7 + index}:00`
 
     const icon = Object.assign({}, styles.hour, {
-      transform: `rotate(${hourRotation[index] + 90}deg)`
+      transform: `rotate(${hourRotation[index] + 240}deg)`
     })
 
     const add = <div style={styles.add} onClick={this._onAdd}>+</div>
@@ -80,6 +81,7 @@ const styles = {
     textAlign: 'center',
     fontWeight: 'bold',
     alignSelf: 'center',
+    transitionDelay: 'background-color 0.5s ease',
     cursor: 'pointer',
     fontSize: 12
   },

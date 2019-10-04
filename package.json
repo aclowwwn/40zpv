@@ -1,7 +1,7 @@
 {
-  "name": "Chunky",
+  "name": "40zpv",
   "version": "0.1.0",
-  "description": "This is Chunky",
+  "description": "This is 40zpv",
   "scripts": {
     "test": "react-savor test",
     "lint": "react-savor lint",
@@ -12,10 +12,15 @@
     "type": "git",
     "url": "git+https://github.com/fluidtrends/chunky.git"
   },
-  "homepage": "http://www.chunky.io",
+  "homepage": "http://www.40pentruviata.org",
   "dependencies": {
+    "fs": "0.0.1-security",
     "moment": "^2.24.0",
-    "react-dom-chunky": "latest"
+    "net": "^1.0.2",
+    "react-dom-chunky": "latest",
+    "request": "^2.88.0",
+    "sheetsu": "^1.2.0",
+    "tls": "0.0.1"
   },
   "devDependencies": {
     "react-savor": "latest"

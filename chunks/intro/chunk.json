@@ -2,7 +2,7 @@
   "name": "intro",
   "routes": {
     "main": {
-      "title": "Campanie",
+      "title": "Acasă",
       "icon": "home",
       "path": "/",
       "cover": {
@@ -32,21 +32,32 @@
             "animation": true
           },
           {
-            "id": "craiova",
+            "id": "oradea",
             "source": "feature",
-            "text": "local://craiova",
-            "image": "craiova.jpg",
             "reversed": true,
+            "text": "local://oradea",
+            "image": "oradea.jpg",
             "actionTitle": "Înscrie-te la veghe",
             "backgroundColor": "#ffffff",
             "textColor": "#0686d8",
             "animation": true
           },
           {
-            "id": "oradea",
+            "id": "nasaud",
             "source": "feature",
-            "text": "local://oradea",
-            "image": "oradea.jpg",
+            "text": "local://nasaud",
+            "image": "nasaud.jpg",
+            "actionTitle": "Înscrie-te la veghe",
+            "backgroundColor": "#ffffff",
+            "textColor": "#0686d8",
+            "animation": true
+          },
+          {
+            "id": "gherla",
+            "source": "feature",
+            "text": "local://gherla",
+            "reversed": true,
+            "image": "gherla.jpg",
             "actionTitle": "Înscrie-te la veghe",
             "backgroundColor": "#ffffff",
             "textColor": "#0686d8",
@@ -71,7 +82,30 @@
         "title": "Începutul sfârșitului avortului",
         "subtitle": "Alătură-te celei mai mari mișcări internaționale de post, rugăciune și veghe pentru viață",
         "type": "simple"
-      }
+      },
+      "startOperationsOnMount": false
+    },
+    "gdpr": {
+      "title": "GDPR",
+      "icon": "home",
+      "path": "/gdpr/agree",
+      "cover": {
+        "image": "cover2.r.jpg",
+        "opacity": 0.4,
+        "navigation": true,
+        "title": "Începutul sfârșitului avortului",
+        "subtitle": "Alătură-te celei mai mari mișcări internaționale de post, rugăciune și veghe pentru viață",
+        "type": "simple"
+      },
+       "components": {
+        "intro": {
+          "source": "summary",
+          "text": "local://gdpr",
+          "image": "logo.png",
+          "textColor": "#37474F"
+        }
+      },
+      "startOperationsOnMount": false
     }
   },
   "transitions": ["push://location", "push://main"]
